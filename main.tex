@@ -1,0 +1,112 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{chngcntr}
+	\counterwithout{equation}{chapter}
+\usepackage{hyperref}
+\usepackage{graphicx}
+	\graphicspath{{images/}}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[super,comma]{natbib}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+	\pagestyle{fancy}
+	\fancyhead[R]{\leftmark}
+	\fancyhead[L]{}
+\renewcommand{\thefootnote}{\alph{footnote}}
+
+\title{\LARGE{Enhancing interpretability of VAEs using biologically informed decoder for single-cell transcriptome analysis}
+\vspace{20mm}}
+\author{
+	\Large{Masters Thesis}\\
+	\\
+	\Large{Presented to the Faculty of Biosciences}\\
+	\Large{of the Ruprecht-Karls-Universität Heidelberg}}
+\date{
+	\vspace{30mm}
+	\Large{Qian-Wu Liao}\\
+	\Large{2022}
+}
+
+\setstretch{1.5}
+
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+\noindent This Thesis was written at \textbf{Health Data Science Unit (HDSU) of Medical Faculty Heidelberg} at the Ruprecht-Karls-Universität Heidelberg in the period from \textbf{11.11.2021} to \textbf{25.05.2022} under the supervision of \textbf{PD Dr. Carl Herrmann} and \textbf{Daria Doncevic}.\vspace{5mm}\\
+\\
+1$\textsuperscript{th}$ Examiner: \textbf{Prof. Dr. Ursula Kummer}\\
+Institute: \textbf{Centre for Organismal Studies (COS) Heidelberg}\\
+\\
+2$\textsuperscript{th}$ Examiner: \textbf{Prof. Dr. Julio Saez-Rodriguez}\\
+Institute: \textbf{Institute for Computational Biomedicine of Universitätsklinikum Heidelberg}\vspace{2cm}\\
+\\
+\noindent I herewith declare that I wrote this Masters Thesis independently, under supervision, and that I used no other sources and aids than those indicated throughout the thesis.\vspace{1cm}\\
+\\
+Date \underline{\hspace{4cm}} \hspace{2cm} Signature \underline{\hspace{4cm}}
+
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+Single-cell RNA sequencing (scRNA-seq) has revolutionized the analysis of transcriptomes for essentially any cell types and variational autoencoders (VAEs) have been proved to be a powerful tool for analyzing noisy single-cell transcriptomic data. However, typical VAE models provide little to no interpretability in their internal networks which are valuable for understanding biological mechanisms. To this end, this work aims at investigating the ability and various properties of two kinds of interpretable VAEs that either use the hard-coded decoder or use the regularized decoder where prior gene set annotations can be incorporated to guide the decoder wiring, which ends up modeling latent variables as the activity of distinctive gene modules. The interpretable latent space can then be used for many downstream studies such as cell type identities, cell states and differential activity analysis of different cell populations. We performed the benchmark studies using the published human adrenal medulla dataset to demonstrate the ability of these two types of interpretable models and indicate that they can be a complementary method to each other due to their unique attributes. Moreover, we also investigated some properties of these interpretable VAEs, such as the model reproducibility and the tolerance of the models to incorrect prior information, to provide more knowledge for further development and improvements.
+
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+\begin{CJK*}{UTF8}{bsmi}
+Firstly, I would like to express my deepest appreciation to my supervisors, Dr. Carl Herrmann and Daria Doncevic. Thank you for patiently imparting your knowledge to me and proactively guiding me through the journey of my thesis work. I enjoyed the time working with you very much. Secondly, I want to thank Prof. Dr. Ursula Kummer and Prof. Dr. Julio Saez-Rodriguez for being my thesis examiners. Thanks also to the people in Health Data Science Unit, Dr. Andres Quintero, Dr. Carlos Ramirez, Ana Luisa Costa, Youcheng Zhang and Lin Yang for any help and happy-happy moments during my thesis time. Thirdly, I want to thank Prof. Dr. Ju-Chien Cheng (鄭如茜 教授) and Dr. Jimmy Kuo (郭傑民 博士) for generously helping and guiding me towards my goal back in 2018 that was such a turning point of my life. Last but not least, I would like to thank my lovely family for always believing in and supporting me. Enriched by your energy, I will keep moving forward with faith in my life. (謝謝我最親愛的家人總是相信與支持我做的任何決定，在未來的路上我會帶著你們的能量與信念繼續朝我的目標前進。)
+\end{CJK*}
+
+\tableofcontents
+
+\chapter*{List of abbreviations}
+\addcontentsline{toc}{chapter}{List of abbreviations}
+\newlist{abbrv}{itemize}{1}
+\setlist[abbrv,1]{label=,labelwidth=1in,align=parleft,itemsep=0.1\baselineskip,leftmargin=!}
+\begin{abbrv}
+	\item[AE]	Autoencoder
+	\item[AUC]	Area under the curve
+	\item[BF]	Bayes factor
+	\item[ChIP-seq]	Chromatin immunoprecipitation sequencing
+	\item[GMV]	Gene module variable
+	\item[GRN]	Gene regulatory network
+	\item[IQR]	Interquartile range
+	\item[KLD]	Kullback-Leibler divergence
+	\item[PBMCs]	Peripheral blood mononuclear cells
+	\item[PCC]	Pearson correlation coefficient
+	\item[scRNA-seq]	Single-cell RNA sequencing
+	\item[SCENIC]	Single-cell regulatory network inference and clustering
+	\item[SCPs]	Schwann cell precursors
+	\item[siRNA]	Small interfering RNA
+	\item[TF]	Transcription factor
+	\item[UMAP]	Uniform Manifold Approximation and Projection
+	\item[VAE]	Variational autoencoder
+	\item[VEGA]	VAE enhanced by gene annotations
+\end{abbrv}
+
+
+\include{Introduction/introduction.tex}
+
+\include{Results/results.tex}
+
+\include{Discussion/discussion.tex}
+
+\include{Methods/methods.tex}
+
+\appendix
+\include{Appendix/appendixA.tex}
+\begin{singlespace}
+	\include{Appendix/appendixB.tex}
+\end{singlespace}
+
+\begin{singlespace}
+	\bibliographystyle{unsrt}
+	\nocite{*}
+	\bibliography{references.bib}
+\end{singlespace}
+
+\end{document}

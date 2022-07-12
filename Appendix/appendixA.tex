@@ -1,0 +1,79 @@
+\chapter{Hyperparameters}\label{appendixA}
+The model architecture is described in Introduction \ref{introduction:model}. Unless mentioned otherwise in certain tasks, the hyperparameters used for model training are provided in the tables below in each section.
+
+\section*{VEGA reproducibility}
+Table \ref{table:hyperparam_reproducibility} shows the hyperparameters for VEGA trained on the PBMCs dataset\cite{Kang2018} in Results \ref{results:reproducibility}. In this reproducibility section, we used the Reactome pathways\cite{Jassal2020} as prior knowledge, so the dimension of the latent space is the number of gene modules included in the Reactome prior information (674) plus the number of additional fully connected nodes (1).
+
+\begin{table}[h!]
+    \begin{center}
+        \caption{Hyperparameters for VEGA trained on PBMCs dataset}
+        \label{table:hyperparam_reproducibility}
+        \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \textbf{add\_nodes} & \textbf{min\_genes} & \textbf{max\_genes} & \textbf{dropout} & \textbf{z\_dropout} & \textbf{beta}\\
+        \hline
+        1 & 0 & 1000 & 0.5 & 0.5 & $5\cdot10^{-5}$\\
+        \hline
+        \textbf{train\_size} & \textbf{batch\_size} & \textbf{optimizer} & \textbf{learning\_rate} & \textbf{num\_epochs} & \textbf{train\_patience}\\
+        \hline
+        1 & 64 & Adam & $10^{-4}$ & 300 & 100\\
+        \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\noindent\textit{add\_nodes} indicates the number of additional fully connected nodes used in the latent space.\\
+\textit{min\_genes} and \textit{max\_genes} specify the minimum and maximum numbers of gene annotations per accepted gene module.\\
+\textit{dropout} indicates the dropout rate of a dropout layer used in the encoder part.\\
+\textit{z\_dropout} indicates the dropout rate of a dropout layer used in the latent space.\\
+\textit{beta} indicates the weight for KL divergence in the VEGA loss function.\\
+\textit{train\_size} indicates the proportion of training data. Note that the number should be set between 0 and 1. The validation data will be $1-train\_size$.\\
+\textit{batch\_size}, \textit{learning\_rate} and \textit{optimizer} indicates the number of data points taken by VEGA using the certain learning rate with the certain optimizer during the training section for a run.\\
+\textit{num\_epochs} indicates the maximum number of epochs for model training.\\
+\textit{train\_patience} indicates the number of epochs for early stopping if VEGA training loss is not being improved anymore.
+
+\section*{Performing benchmarks for VEGA}
+Table \ref{table:hyperparam_benchmarks} shows the hyperparameters used for model training in Results \ref{results:benchmarks}. We employed two datasets for different tasks in this section: The human adrenal medulla dataset\cite{Jansky2021} which was used to benchmark VEGA and investigate some properties of the model and the human neuroblastoma dataset\cite{Jansky2021} which was used to test the function of batch correction of the model. For prior knowledge, we used two collections of the SCENIC\cite{Aibar2017} regulons inferred from these two datasets respectively and the non-context-specific DoRothEA\cite{Garcia-Alonso2019} regulons, so the dimension of the latent space is the number of the adrenal medulla SCENIC regulons (215), the neuroblastoma SCENIC regulons (67) and the DoRothEA regulons (211) plus the number of additional fully connected nodes (1).
+
+\begin{table}[h!]
+    \begin{center}
+        \caption{Hyperparameters for VEGA benchmark studies}
+        \label{table:hyperparam_benchmarks}
+        \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \textbf{add\_nodes} & \textbf{min\_genes} & \textbf{max\_genes} & \textbf{dropout} & \textbf{z\_dropout} & \textbf{beta}\\
+        \hline
+        1 & 0 & 5000 & 0.5 & 0.5 & $5\cdot10^{-5}$\\
+        \hline
+        \textbf{train\_size} & \textbf{batch\_size} & \textbf{learning\_rate} & \textbf{num\_epochs} & \textbf{train\_patience} & \textbf{valid\_patience}\\
+        \hline
+        0.8 & 64 & $4\cdot10^{-4}$ & 500 & 40 & 40\\
+        \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\noindent The explanatory notes of the hyperparameters are given above except \textit{valid\_patience} that indicates the number of epochs for early stopping if VEGA validation loss is not being improved anymore. Note that the \textit{optimizer} used in the benchmark studies is also the Adam optimization algorithm.
+
+\section*{Model using L1 regularized linear decoder}
+In Results \ref{results:regularized_decoder}, we tuned the value of \textit{lambda} ($\lambda$) to investigate the behavior and the ability of the regularized decoder, and the other hyperparameters used for model training can be found in Table \ref{table:hyperparam_L1}. The human adrenal medulla dataset\cite{Jansky2021} was used in this section. For prior knowledge, the adrenal medulla SCENIC regulons and the DoRothEA regulons were used, so the dimension of the latent space is the number of the adrenal medulla SCENIC regulons (215) and the DoRothEA regulons (211). Notice that we did not employ additional fully connected nodes in the latent space.
+
+\begin{table}[h!]
+    \begin{center}
+        \caption{Hyperparameters for model using regularized linear decoder}
+        \label{table:hyperparam_L1}
+        \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \textbf{add\_nodes} & \textbf{min\_genes} & \textbf{max\_genes} & \textbf{dropout} & \textbf{z\_dropout} & \textbf{beta}\\
+        \hline
+        0 & 0 & 5000 & 0.5 & 0.5 & $5\cdot10^{-5}$\\
+        \hline
+        \textbf{train\_size} & \textbf{batch\_size} & \textbf{learning\_rate} & \textbf{num\_epochs} & \textbf{valid\_patience} & \textbf{lambda}\\
+        \hline
+        0.8 & 64 & $4\cdot10^{-4}$ & 500 & 40 & 0.025\\
+        \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\noindent The explanatory notes of the hyperparameters are given above except \textit{lambda} that indicates the degree of imposing L1 regularization on weights in the decoder. Note that the \textit{optimizer} used in this section is also the Adam optimization algorithm and the \textit{train\_patience} is 40.
