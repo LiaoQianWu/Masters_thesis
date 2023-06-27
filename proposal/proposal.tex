@@ -1,0 +1,57 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{hyperref}
+\usepackage{graphicx}
+	\graphicspath{{images/}}
+\usepackage[bottom]{footmisc}
+
+\title{
+    \vspace{-24mm}
+    \includegraphics[scale=1.04]{logo_hdsu.jpg}\\
+    \vspace{6mm} \Large \bfseries Improvements for variational autoencoders inspired by biological abstractions
+    }
+\author{
+    \hspace{-5mm} \small \textsc{Student:} Qian-Wu Liao\\
+    \hspace{-5mm} \small \textsc{Matrikelnummer:} 3631657\\
+    \hspace{-5mm} \small QianWu.Liao@stud.uni-heidelberg.de
+    \and
+    \hspace{2mm} \small \textsc{Supervisor:} Daria Doncevic\\
+    \hspace{2mm} \small \textsc{Supervisor:} Dr. Carl Herrmann
+    }
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-8mm}
+
+\section*{\large Background}
+Deep learning-based methods such as autoencoders (AEs) \cite{Hinton2006} have been proven to be an effective technique to handle high-dimensional data. Unlike principal component analysis (PCA) that is limited by its linear nature, AEs are capable of capturing more complex patterns in data. Generally, AEs consist of an encoder that can learn a non-linear transformation compressing high-dimensional data into lower-dimensional vectors forming a latent space and a decoder that will then take the compressed vectors from the latent space and reconstruct it to the original dimensions. However, it is challenging to use AEs as generative models due to their discrete latent spaces. To this end, variational autoencoders (VAEs) \cite{Kingma2014} were developed. VAEs map high-dimensional data to a probability distribution where the lower-dimensional representations can be sampled, which better generalizes models. Even though VAEs can generate fairly complete and informative latent spaces and make accurate predictions, yet, these latent spaces provide little to no interpretability that is crucial for understanding biological mechanisms. To gain more interpretability of internal networks, prior biological information can be integrated into network structures. Ma et al. (2018) has successfully embedded the hierarchies of molecular subsystems about cellular processes in the network architecture, which models not only functional outcomes but also the mechanisms resulting in these outcomes.
+
+\section*{\large Previous work}
+Based on the idea mentioned above, Seninge et al. (2021) proposed a novel VAE inspired by biological abstractions, VEGA (VAE Enhanced by Gene Annotations), whose architecture consists of a deep non-linear encoder and a single-layer masked linear decoder. An interpretable latent space and decoder wiring of the VEGA is specified by \textit{a priori} biological abstractions, e.g., gene regulatory networks. Latent variables and decoder connections can be initiated by master transcription factors (TFs) and TF-target gene connections and the weights of decoder connections offer direct interpretation of the relationships between the latent variables and the original features. Note that the decision of a single-layer decoder is to maximize the inference capacity of the encoder.
+
+\section*{\large Aims of thesis}
+The VEGA efficiently provides interpretability of the latent space, which enables us to gain more biological insights. However, the single-layer masked decoder of the VEGA sacrifices the generative capacity for interpretability of the latent space. Therefore, we will mainly focus on improving this downside by inserting an additional layer (e.g., initiated by a list of second major TFs) in the decoder part to boost a predictive performance while maintaining biological interpretability.
+\vspace{-3mm} \subsection*{\normalsize 25.10.21 - 07.11.21}
+\vspace{-3mm} \subsection*{\normalsize Reproduce the results from the VEGA paper}
+Firstly, we will reproduce the results from the VEGA papaer to validate and understand the code provided by the author\footnote{\url{https://github.com/LucasESBS/vega}}. The VEGA is built using Python \textit{PyTorch} framework \cite{paszke2017} and the single-cell sequencing data is preprocessed by Python \textit{SCANPY} toolkit \cite{Wolf2018}.
+\vspace{-3mm} \subsection*{\normalsize 08.11.21 - 05.12.21}
+\vspace{-3mm} \subsection*{\normalsize Exploit the VEGA model to analyze the activity of the master regulators in the context of neuroblastoma transcriptomics data}
+Next, we will adapt the code to the neuroblastoma single-cell transcriptomics data \cite{Jansky2021} while using master TFs (MYCN and TFAP2B) and their gene regulatory networks to initiate the latent space and the decoder wiring.
+\vspace{-3mm} \subsection*{\normalsize 06.12.21 - 30.01.22}
+\vspace{-3mm} \subsection*{\normalsize Add an additional layer in the docoder part to improve a predictive performance}
+After adapting the VEGA model to the neuroblastoma data and evaluating the quality of the results, we will manage to add an additional layer (i.e., second major TFs) in the decoder part in an attempt to boost a predictive performance.
+\vspace{-3mm} \subsection*{\normalsize 31.01.22 - 27.02.22}
+\vspace{-3mm} \subsection*{\normalsize Improve hard-coding decoder by regularization methods on weights}
+Hard-coding decoder connections using a binary matrix that describes the relationship between TFs and original genes impedes the model to correct prior information or explore unknow knowledge. We will take advantage of regularization methods on weights in the decoder part to make the model more robust.
+\vspace{-3mm} \subsection*{\normalsize 28.02.22 - 03.04.22}
+\vspace{-3mm} \subsection*{\normalsize Extend the usage of the VEGA model to bulk RNA-seq data}
+Last but not least, since the workflow of the VEGA is currently designed to cope with single-cell RNA sequencing (scRNA-seq) data only, we are expecting to extend the model to bulk RNA-seq data.
+\vspace{-3mm} \subsection*{\normalsize 04.03.22 - 01.05.22}
+\vspace{-3mm} \subsection*{\normalsize Buffer time: Summarize the work and write the thesis}
+
+\newpage
+\bibliographystyle{unsrt}
+\nocite{*}
+\bibliography{references}
+
+\end{document}

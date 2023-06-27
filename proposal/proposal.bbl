@@ -1,0 +1,47 @@
+\begin{thebibliography}{1}
+
+\bibitem{Hinton2006}
+{G. E.} Hinton and {R. R.} Salakhutdinov.
+\newblock Reducing the dimensionality of data with neural networks.
+\newblock {\em Science}, 313:504–507, 2006.
+
+\bibitem{Kingma2014}
+{Diederik P.} Kingma and Max Welling.
+\newblock Auto-encoding variational bayes.
+\newblock {\em International Conference on Learning Representations (ICLR)},
+  2014.
+
+\bibitem{paszke2017}
+Adam Paszke, Sam Gross, Soumith Chintala, Gregory Chanan, Edward Yang, Zachary
+  DeVito, Zeming Lin, Alban Desmaison, Luca Antiga, and Adam Lerer.
+\newblock Automatic differentiation in pytorch.
+\newblock In {\em NIPS-W}, 2017.
+
+\bibitem{Wolf2018}
+{F. Alexander} Wolf, Philipp Angerer, and {Fabian J.} Theis.
+\newblock Scanpy: large-scale single-cell gene expression data analysis.
+\newblock {\em Genome Biology}, 19:15, 2018.
+
+\bibitem{Jansky2021}
+Selina Jansky, {Ashwini Kumar} Sharma, Verena Körber, Andrés Quintero, {Umut
+  H.} Toprak, {Elisa M.} Wecht, Moritz Gartlgruber, Alessandro Greco, Elad
+  Chomsky, {Thomas G. P.} Grünewald, Kai-Oliver Henrich, Amos Tanay, Carl
+  Herrmann, Thomas Höfer, and Frank Westermann.
+\newblock Single-cell transcriptomic analyses provide insights into the
+  developmental origins of neuroblastoma.
+\newblock {\em Nature Genetics}, 53:683–693, 2021.
+
+\bibitem{Ma2018}
+Jianzhu Ma, {Michael Ku} Yu, Samson Fong, Keiichiro Ono, Eric Sage, Barry
+  Demchak, Roded Sharan, and Trey Ideker.
+\newblock Using deep learning to model the hierarchical structure and function
+  of a cell.
+\newblock {\em Nature Methods}, 15:290--298, 2018.
+
+\bibitem{Seninge2021}
+Lucas Seninge, Ioannis Anastopoulos, Hongxu Ding, and Joshua Stuart.
+\newblock Vega is an interpretable generative model for inferring biological
+  network activity in single-cell transcriptomics.
+\newblock {\em Nature Communications}, 12:5684, 2021.
+
+\end{thebibliography}
